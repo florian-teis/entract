@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entr.act, coiffeur aux Sables-d'Olonne</title>
+<meta name="description" content="Salon de coiffure Entr.act, 7 rue de l'Hôtel de Ville aux Sables-d'Olonne. Coupe, couleur, balayage, soin. Du lundi au samedi en horaires continus, avec ou sans rendez-vous.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/img/favicon.png" sizes="any">
+
+<!-- Tant que le salon n'a pas validé les tarifs, les horaires et les textes,
+     le site reste hors des moteurs de recherche. Le lien se partage
+     normalement. Pour le rendre référençable : supprimez la ligne ci-dessous. -->
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="canonical" href="https://florian-teis.github.io/entract/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://florian-teis.github.io/entract/">
+<meta property="og:title" content="Entr.act, coiffeur aux Sables-d'Olonne">
+<meta property="og:description" content="Une parenthèse au milieu de la journée. Coupe, couleur, soin, rue de l'Hôtel de Ville.">
+<meta property="og:image" content="https://florian-teis.github.io/entract/assets/img/devanture.jpg">
+<meta property="og:locale" content="fr_FR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org","@type":"HairSalon","name":"Entr.act",
+ "image":"assets/img/poster-hero.jpg","telephone":"+33251320244",
+ "address":{"@type":"PostalAddress","streetAddress":"7 rue de l'Hôtel de Ville","postalCode":"85100","addressLocality":"Les Sables-d'Olonne","addressCountry":"FR"},
+ "geo":{"@type":"GeoCoordinates","latitude":46.4965027,"longitude":-1.7839664},
+ "openingHours":["Mo 09:00-18:00","Tu-Fr 09:00-19:00","Sa 09:00-18:00"],
+ "priceRange":"€€","url":"https://www.planity.com/entract-85100-les-sables-dolonne-f8d"
+}
+</script>
+</head>
+<body>
+<a class="evitement" href="#accueil">Aller au contenu</a>
+
+<!-- OUVERTURE : écran noir, le logo se lève puis rejoint sa place -->
+<div class="intro" id="intro" aria-hidden="true">
+  <span class="sigle sigle--grand intro__sigle"></span>
+</div>
+
+<header class="entete" id="entete">
+  <a class="entete__marque" href="#accueil" aria-label="Entr.act, retour en haut de page">
+    <span class="sigle sigle--petit"></span>
+  </a>
+
+  <nav class="entete__nav" id="menu" aria-label="Navigation principale">
+    <a href="#entracte">Le salon</a>
+    <a href="#prestations">Prestations</a>
+    <a href="#equipe">L'équipe</a>
+    <a href="#avis">Avis</a>
+    <a href="#venir">Nous trouver</a>
+    <a class="entete__tel" href="tel:+33251320244">02 51 32 02 44</a>
+  </nav>
+
+  <a class="bouton bouton--blanc entete__rdv" id="rdv-entete"
+     href="https://www.planity.com/entract-85100-les-sables-dolonne-f8d" target="_blank" rel="noopener">Réserver</a>
+
+  <button class="volet" id="volet" aria-expanded="false" aria-controls="menu">
+    <span aria-hidden="true"></span><span class="sr">Ouvrir le menu</span>
+  </button>
+</header>
+
+<main>
+
+<!-- ACCUEIL -->
+<section class="hero" id="accueil">
+  <div class="hero__film">
+    <video autoplay muted loop playsinline preload="auto" poster="assets/img/poster-hero.jpg" aria-hidden="true" tabindex="-1">
+      <source src="assets/video/hero.mp4" media="(min-width: 700px)" type="video/mp4">
+      <source src="assets/video/hero-mobile.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="hero__contenu">
+    <h1 class="hero__titre"><span class="sigle sigle--grand"></span><span class="sr">Entr.act</span></h1>
+    <a class="bouton bouton--blanc bouton--large" id="rdv-principal"
+       href="https://www.planity.com/entract-85100-les-sables-dolonne-f8d" target="_blank" rel="noopener">Prendre rendez-vous</a>
+  </div>
+
+  <a class="hero__suite" href="#entracte" aria-label="Descendre vers la suite"><span aria-hidden="true"></span></a>
+</section>
+
+<!-- LE SALON, premier temps : texte à gauche, film vertical à droite -->
+<section class="section recit" id="entracte">
+  <div class="recit__texte">
+    <h2 class="titre">Pourquoi <span class="sigle sigle--titre" aria-hidden="true"></span><span class="sr">Entr.act</span></h2>
+    <p class="exergue">Au théâtre, l'entracte est ce moment suspendu où le rideau retombe. On se lève, on respire, on redevient soi avant que la pièce reprenne.</p>
+    <p>C'est de là qu'est venu le nom du salon, rue de l'Hôtel de Ville. L'idée tenait en une phrase : faire de l'heure passée ici une parenthèse au milieu de la journée.</p>
+    <p>Une heure où l'on ne vous demande rien, où quelqu'un s'occupe de vous, et d'où l'on ressort un peu plus droit qu'en entrant.</p>
+  </div>
+  <div class="recit__film">
+    <video muted loop playsinline preload="none" poster="assets/img/poster-entracte.jpg" data-video-vue aria-hidden="true" tabindex="-1">
+      <source src="assets/video/entracte.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- second temps : film à gauche, texte à droite -->
+<section class="section recit recit--inverse recit--suite" aria-label="Le salon, suite">
+  <div class="recit__film">
+    <video muted loop playsinline preload="none" poster="assets/img/poster-atelier.jpg" data-video-vue aria-hidden="true" tabindex="-1">
+      <source src="assets/video/atelier.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="recit__texte">
+    <h2 class="titre titre--second">On prend le temps</h2>
+    <p>Celui d'écouter ce que vous voulez vraiment, avant de toucher aux ciseaux. Celui de faire les choses bien, sans regarder l'horloge.</p>
+    <p>Et celui de vous montrer comment retrouver le même geste chez vous, le lendemain matin, en trois minutes devant votre miroir.</p>
+    <p>Depuis l'ouverture, l'équipe s'est agrandie et la façade a pris ses lettres dorées. Cette règle-là, elle, n'a pas bougé.</p>
+    <p class="signature">Emmanuel, Estelle, Caroline et Anne-Sophie</p>
+  </div>
+</section>
+
+<!-- PRESTATIONS -->
+<section class="section" id="prestations">
+  <div class="section__entree">
+    <h2 class="titre">Prestations</h2>
+  </div>
+
+  <div class="programme">
+    <section class="programme__acte">
+      <h3>Couper</h3>
+      <ul class="tarifs">
+        <li><span class="tarifs__nom">Coupe femme, shampooing et coiffage</span><i class="tarifs__fil"></i><span class="tarifs__prix">39 à 47,50 €</span></li>
+        <li><span class="tarifs__nom">Coupe homme, shampooing et coiffage</span><i class="tarifs__fil"></i><span class="tarifs__prix">26 €</span></li>
+        <li><span class="tarifs__nom">Enfant, moins de 10 ans</span><i class="tarifs__fil"></i><span class="tarifs__prix">18 €</span></li>
+        <li><span class="tarifs__nom">Brushing seul</span><i class="tarifs__fil"></i><span class="tarifs__prix">24 à 32,50 €</span></li>
+      </ul>
+    </section>
+
+    <section class="programme__acte">
+      <h3>Colorer</h3>
+      <ul class="tarifs">
+        <li><span class="tarifs__nom">Couleur</span><i class="tarifs__fil"></i><span class="tarifs__prix">56 à 85 €</span></li>
+        <li><span class="tarifs__nom">Balayage, mèches, ombré nuancé</span><i class="tarifs__fil"></i><span class="tarifs__prix">sur devis</span></li>
+        <li><span class="tarifs__nom">Henné, 100 % naturel</span><i class="tarifs__fil"></i><span class="tarifs__prix">sur devis</span></li>
+      </ul>
+    </section>
+
+    <section class="programme__acte">
+      <h3>Soigner</h3>
+      <ul class="tarifs">
+        <li><span class="tarifs__nom">Soins à la carte</span><i class="tarifs__fil"></i><span class="tarifs__prix">5 à 29 €</span></li>
+        <li><span class="tarifs__nom">Liquid Hair, reconstructeur de fibre</span><i class="tarifs__fil"></i><span class="tarifs__prix">sur devis</span></li>
+        <li><span class="tarifs__nom">Permanente sans ammoniaque</span><i class="tarifs__fil"></i><span class="tarifs__prix">61 à 68 €</span></li>
+      </ul>
+    </section>
+
+    <section class="programme__acte">
+      <h3>Les grands jours</h3>
+      <ul class="tarifs">
+        <li><span class="tarifs__nom">Chignon couture</span><i class="tarifs__fil"></i><span class="tarifs__prix">48 €</span></li>
+        <li><span class="tarifs__nom">Essai coiffure mariée</span><i class="tarifs__fil"></i><span class="tarifs__prix">sur devis</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <p class="mention">Moins de 20 ans : 20 % de remise sur toutes les prestations. Le salon reçoit avec ou sans rendez-vous.</p>
+</section>
+
+<!-- RUPTURE FILM -->
+<section class="bande" aria-label="Le salon en images">
+  <video muted loop playsinline preload="none" poster="assets/img/poster-geste.jpg" data-video-vue aria-hidden="true" tabindex="-1">
+    <source src="assets/video/geste.mp4" type="video/mp4">
+  </video>
+</section>
+
+<!-- EQUIPE -->
+<section class="section" id="equipe">
+  <div class="section__entree">
+    <h2 class="titre">L'équipe</h2>
+    <p class="chapo">Quatre coiffeurs, une seule façon de travailler : on regarde votre visage avant de regarder vos cheveux.</p>
+  </div>
+
+  <ul class="equipe">
+    <li class="membre">
+      <div class="portrait" data-lettre="E">
+        <img src="assets/img/equipe/emmanuel.jpg" alt="Emmanuel, coiffeur visagiste chez Entr.act" loading="lazy" onerror="this.remove()">
+      </div>
+      <h3>Emmanuel</h3>
+      <p>Coiffeur visagiste</p>
+    </li>
+    <li class="membre">
+      <div class="portrait" data-lettre="E">
+        <img src="assets/img/equipe/estelle.jpg" alt="Estelle, coloriste et visagiste chez Entr.act" loading="lazy" onerror="this.remove()">
+      </div>
+      <h3>Estelle</h3>
+      <p>Coloriste et visagiste</p>
+    </li>
+    <li class="membre">
+      <div class="portrait" data-lettre="C">
+        <img src="assets/img/equipe/caroline.jpg" alt="Caroline, coiffeuse chez Entr.act" loading="lazy" onerror="this.remove()">
+      </div>
+      <h3>Caroline</h3>
+      <p>Coiffeuse</p>
+    </li>
+    <li class="membre">
+      <div class="portrait" data-lettre="A">
+        <img src="assets/img/equipe/anne-sophie.jpg" alt="Anne-Sophie, coloriste et visagiste chez Entr.act" loading="lazy" onerror="this.remove()">
+      </div>
+      <h3>Anne-Sophie</h3>
+      <p>Coloriste et visagiste</p>
+    </li>
+  </ul>
+</section>
+
+<!-- AVIS -->
+<section class="section avis" id="avis">
+  <div class="section__entree">
+    <h2 class="titre">Ce qu'on en dit</h2>
+    <p class="chapo">
+      <strong class="note">4,9 sur 5</strong>
+      <!-- Les étoiles suivent la note : --part = note / 5 en pourcentage.
+           4,9 sur 5 donne 98 %. Changez les deux ensemble. -->
+      <span class="etoiles" style="--part:98%" role="img" aria-label="4,9 étoiles sur 5">
+        <span class="etoiles__creux" aria-hidden="true">★★★★★</span>
+        <span class="etoiles__plein" aria-hidden="true">★★★★★</span>
+      </span>
+      <span class="chapo__suite">sur les 635 avis déposés sur Planity.</span>
+    </p>
+  </div>
+
+  <div class="ruban" id="ruban-avis">
+    <div class="ruban__piste" id="piste-avis"></div>
+  </div>
+</section>
+
+<!-- VENIR -->
+<section class="section venir" id="venir">
+  <h2 class="titre venir__titre">Venir au salon</h2>
+
+  <!-- premier rang : les horaires, la carte en face -->
+  <div class="venir__horaires">
+    <table class="horaires" id="horaires">
+      <caption class="sr">Horaires d'ouverture</caption>
+      <tbody>
+        <tr data-jour="1"><th scope="row">Lundi</th><td>9h00 à 18h00</td></tr>
+        <tr data-jour="2"><th scope="row">Mardi</th><td>9h00 à 19h00</td></tr>
+        <tr data-jour="3"><th scope="row">Mercredi</th><td>9h00 à 19h00</td></tr>
+        <tr data-jour="4"><th scope="row">Jeudi</th><td>9h00 à 19h00</td></tr>
+        <tr data-jour="5"><th scope="row">Vendredi</th><td>9h00 à 19h00</td></tr>
+        <tr data-jour="6"><th scope="row">Samedi</th><td>9h00 à 18h00</td></tr>
+        <tr data-jour="0"><th scope="row">Dimanche</th><td class="ferme">fermé</td></tr>
+      </tbody>
+    </table>
+    <p class="mention">Horaires continus, midi compris.</p>
+  </div>
+
+  <div class="venir__plan">
+    <div class="plan" id="plan" role="img" aria-label="Carte situant le salon Entr.act, 7 rue de l'Hôtel de Ville aux Sables-d'Olonne">
+      <div class="plan__repli">
+        <p>7 rue de l'Hôtel de Ville<br>85100 Les Sables-d'Olonne</p>
+      </div>
+    </div>
+    <a class="plan__lien" href="https://www.google.com/maps/dir/?api=1&amp;destination=7+rue+de+l%27H%C3%B4tel+de+Ville+85100+Les+Sables-d%27Olonne" target="_blank" rel="noopener">Ouvrir l'itinéraire</a>
+  </div>
+
+  <!-- second rang : les coordonnées, la devanture en face -->
+  <div class="venir__contact">
+    <address>7 rue de l'Hôtel de Ville<br>85100 Les Sables-d'Olonne</address>
+    <a class="telephone" href="tel:+33251320244">02 51 32 02 44</a>
+    <p class="mention">Le salon n'est pas sur les réseaux sociaux. Pour toute question, c'est par téléphone.</p>
+    <a class="bouton bouton--blanc" href="https://www.planity.com/entract-85100-les-sables-dolonne-f8d" target="_blank" rel="noopener">Prendre rendez-vous</a>
+  </div>
+
+  <figure class="devanture">
+    <img src="assets/img/devanture.jpg" width="1240" height="817" loading="lazy"
+         alt="La devanture du salon Entr.act : façade gris ardoise et lettres dorées, rue de l'Hôtel de Ville aux Sables-d'Olonne.">
+  </figure>
+</section>
+
+</main>
+
+<footer class="pied">
+  <div class="pied__marque">
+    <span class="sigle sigle--moyen"></span>
+    <p>7 rue de l'Hôtel de Ville, 85100 Les Sables-d'Olonne</p>
+  </div>
+  <p class="pied__legal">
+    <a href="tel:+33251320244">02 51 32 02 44</a>
+    <span>Du lundi au samedi, horaires continus</span>
+  </p>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>

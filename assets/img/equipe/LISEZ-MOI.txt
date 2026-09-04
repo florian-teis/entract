@@ -1,0 +1,8 @@
+Déposez ici les photos de l'équipe, nommées :
+  emmanuel.jpg
+  estelle.jpg
+  caroline.jpg
+  anne-sophie.jpg
+
+Format conseillé : portrait vertical, 800 x 1000 px minimum.
+Elles apparaîtront automatiquement sur le site, sans rien modifier.

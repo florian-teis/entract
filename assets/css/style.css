@@ -1,0 +1,882 @@
+/* ============================================================
+   Entr.act — feuille de style
+   Direction artistique : noir et blanc. Pas de couleur d'accent.
+   La hiérarchie se fait par la graisse, la taille et l'opacité,
+   jamais par la teinte.
+   ============================================================ */
+
+:root{
+  --noir:          #000000;
+  --ardoise:       #111111;
+  --ardoise-clair: #1b1b1b;
+  --blanc:         #ffffff;
+  --blanc-vif:     #ffffff;
+  --craie:         #ededea;
+  --cendre:        #8e8e8c;
+  --trait:         rgba(255,255,255,.20);
+  --trait-sourd:   rgba(255,255,255,.11);
+
+  --serif: "Bodoni Moda", "Didot", "Times New Roman", serif;
+  --sans:  "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+
+  --marge: clamp(1.25rem, 5vw, 5.5rem);
+  --large: 1180px;
+  --souffle: clamp(5rem, 11vw, 9.5rem);
+
+  --ease: cubic-bezier(.22,.68,.28,1);
+  /* la courbe des révélations, reprise du site Le Prénom pour que les
+     deux sites bougent de la même façon */
+  --courbe: cubic-bezier(.22,1,.36,1);
+}
+
+/* ============================================================
+   Révélations au défilement
+   Les états masqués ne s'appliquent que si le JavaScript tourne
+   (html.anime) : sans lui, la page reste entièrement lisible.
+   ============================================================ */
+
+.revele{
+  transition:opacity .9s var(--courbe), transform .9s var(--courbe);
+  transition-delay:var(--retard, 0s);
+}
+html.anime .revele{ opacity:0; transform:translateY(28px) }
+html.anime .revele.vu{ opacity:1; transform:none }
+
+/* les images se posent en se dézoomant doucement */
+.zoom{ overflow:hidden }
+.zoom img{ transition:transform 1.6s var(--courbe); transition-delay:var(--retard, 0s) }
+html.anime .zoom img{ transform:scale(1.12) }
+html.anime .zoom.vu img{ transform:none }
+
+*,*::before,*::after{ box-sizing:border-box }
+
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100% }
+
+body{
+  margin:0;
+  background:var(--noir);
+  color:var(--craie);
+  font:300 1.0625rem/1.68 var(--sans);
+  letter-spacing:.005em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+img,video{ max-width:100%; display:block }
+a{ color:inherit }
+
+:focus-visible{
+  outline:2px solid var(--blanc-vif);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.sr{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+.evitement{
+  position:absolute; top:-100px; left:var(--marge); z-index:100;
+  background:var(--blanc); color:var(--noir); padding:.7rem 1.2rem;
+  font-size:.9rem; text-decoration:none;
+}
+.evitement:focus{ top:.75rem }
+
+/* --- le sigle -------------------------------------------------------- */
+/* Le logo est un PNG détouré, coloré ici par un masque.                 */
+
+.sigle{
+  display:block;
+  aspect-ratio:2087 / 372;
+  /* blanc, avec une descente à peine perceptible vers le gris clair :
+     à 500 px de large, un aplat pur ferait autocollant. */
+  background-image:linear-gradient(176deg, #ffffff 0%, #f4f4f3 52%, #dcdcda 100%);
+  -webkit-mask:url(../img/logo-entract.png) center / contain no-repeat;
+  mask:url(../img/logo-entract.png) center / contain no-repeat;
+}
+.sigle--grand { width:min(68vw, 498px) }
+.sigle--moyen { width:172px }
+.sigle--petit { width:118px }
+
+/* le sigle posé dans un titre, à la place du mot « Entr.act ».
+   Largeur en em : il suit la taille du titre. Le PNG est détouré au ras
+   de l'encre et le mot n'a pas de jambage, donc son bas tombe sur la
+   ligne de base du texte qui le précède. */
+.sigle--titre{
+  display:inline-block;
+  width:4.35em;
+  vertical-align:baseline;
+  margin-left:.1em;
+}
+
+/* --- boutons --------------------------------------------------------- */
+
+.bouton{
+  display:inline-block;
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:.95rem;
+  letter-spacing:.09em;
+  text-decoration:none;
+  padding:.95em 2.1em;
+  border:1px solid var(--blanc);
+  color:var(--blanc-vif);
+  background:transparent;
+  transition:background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+}
+.bouton:hover,.bouton:focus-visible{
+  background:var(--blanc);
+  color:var(--noir);
+  border-color:var(--blanc);
+}
+.bouton--blanc{
+  background:var(--blanc);
+  color:#000000;
+  font-weight:400;
+}
+.bouton--blanc:hover,.bouton--blanc:focus-visible{
+  background:var(--blanc-vif);
+  border-color:var(--blanc-vif);
+  color:#000000;
+}
+.bouton--large{ padding:1.15em 3em; font-size:1rem }
+
+/* --- bouton de réservation, au survol -------------------------------- */
+/* Une pastille sombre part de la gauche, s'étend jusqu'à remplir le
+   bouton, et le libellé cède la place à sa doublure en blanc.
+   Le mouvement répond à un geste du visiteur : il ne se déclenche jamais
+   tout seul. Les couches ajoutées le sont par site.js.                   */
+
+.bouton--vif{
+  position:relative;
+  overflow:hidden;
+  border-radius:999px;
+  isolation:isolate;
+}
+/* on neutralise l'inversion de fond du bouton de base : ici c'est la
+   pastille qui fait le travail */
+.bouton--vif:hover,
+.bouton--vif:focus-visible{
+  background:var(--blanc);
+  border-color:var(--blanc);
+  color:#000000;
+}
+
+.bouton__libelle{
+  position:relative; z-index:2;
+  display:inline-block;
+  transition:transform .45s var(--ease), opacity .28s var(--ease);
+}
+
+.bouton__bulle{
+  position:absolute; z-index:1;
+  left:.9em; top:50%;
+  width:.46em; height:.46em; margin-top:-.23em;
+  border-radius:999px;
+  background:#000000;
+  transition:width .5s var(--ease), height .5s var(--ease),
+             left .5s var(--ease), top .5s var(--ease),
+             margin-top .5s var(--ease), border-radius .5s var(--ease);
+}
+
+.bouton__survol{
+  position:absolute; inset:0; z-index:2;
+  display:flex; align-items:center; justify-content:center; gap:.5em;
+  color:var(--blanc-vif);
+  opacity:0;
+  transform:translateX(-1.5em);
+  transition:transform .45s var(--ease), opacity .28s var(--ease);
+}
+.bouton__survol svg{ width:1em; height:1em; flex:0 0 auto }
+
+/* le petit bouton de l'entête a besoin d'un peu de marge pour loger
+   la pastille sans la coller au texte */
+.entete__rdv.bouton--vif{ padding-inline:2em }
+
+.bouton--vif:hover .bouton__libelle,
+.bouton--vif:focus-visible .bouton__libelle{
+  transform:translateX(1.7em);
+  opacity:0;
+}
+.bouton--vif:hover .bouton__bulle,
+.bouton--vif:focus-visible .bouton__bulle{
+  left:0; top:0; margin-top:0;
+  width:100%; height:100%;
+  border-radius:0;
+}
+.bouton--vif:hover .bouton__survol,
+.bouton--vif:focus-visible .bouton__survol{
+  transform:none;
+  opacity:1;
+}
+
+/* --- entête ---------------------------------------------------------- */
+
+/* Le bandeau n'existe pas sur l'écran d'accueil : il descend seulement
+   une fois la vidéo quittée, et remonte si l'on revient en haut. */
+.entete{
+  position:fixed; inset:0 0 auto 0; z-index:50;
+  display:flex; align-items:center; gap:clamp(1rem,3vw,2.5rem);
+  padding:.85rem var(--marge);
+  background:rgba(0,0,0,.9);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--trait-sourd);
+
+  transform:translateY(-101%);
+  opacity:0;
+  visibility:hidden;
+  transition:transform .6s var(--ease), opacity .4s var(--ease), visibility .6s;
+}
+.entete--visible{
+  transform:none;
+  opacity:1;
+  visibility:visible;
+}
+
+.entete__marque{ flex:0 0 auto; line-height:0 }
+
+.entete__nav{
+  margin-left:auto;
+  display:flex; align-items:center; gap:clamp(1rem,2.4vw,2.1rem);
+  font-size:.86rem; letter-spacing:.055em;
+}
+.entete__nav a{
+  text-decoration:none; color:var(--craie); opacity:.82;
+  padding-block:.4rem;
+  border-bottom:1px solid transparent;
+  transition:opacity .3s, border-color .3s, color .3s;
+}
+.entete__nav a:hover,.entete__nav a:focus-visible{ opacity:1; color:var(--blanc-vif); border-bottom-color:var(--blanc) }
+.entete__tel{ display:none }
+
+/* il fait partie du bandeau : il apparaît avec lui */
+.entete__rdv{
+  flex:0 0 auto;
+  padding:.72em 1.5em; font-size:.84rem;
+}
+
+.volet{ display:none }
+
+/* --- accueil --------------------------------------------------------- */
+
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:grid; place-items:center;
+  padding:8rem var(--marge) 6rem;
+  overflow:hidden;
+  isolation:isolate;
+}
+.hero__film{ position:absolute; inset:0; z-index:0 }
+.hero__film video{
+  width:100%; height:100%; object-fit:cover;
+  filter:brightness(.8) contrast(1.02);
+}
+/* voile : assombrit le centre pour que le sigle blanc tienne */
+.hero::after{
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    /* creux discret derrière le logo, juste assez pour qu'il se détache :
+       l'image doit rester nette et lisible partout ailleurs               */
+    radial-gradient(46% 34% at 50% 45%, rgba(0,0,0,.58) 0%, rgba(0,0,0,.34) 62%, rgba(0,0,0,0) 100%),
+    radial-gradient(100% 76% at 50% 47%, rgba(0,0,0,.14) 0%, rgba(0,0,0,.30) 64%, rgba(0,0,0,.66) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.6) 0%, transparent 24%, transparent 64%, #000 100%);
+}
+
+/* --- l'ouverture ----------------------------------------------------- */
+/* Écran noir, le logo se lève lentement, puis il rejoint sa place dans
+   la page pendant que le noir s'efface. Une fois par visite.           */
+
+.intro{
+  position:fixed; inset:0; z-index:200;
+  display:none;
+  place-items:center;
+  background:var(--noir);
+}
+.intro.actif{ display:grid }
+
+.intro__sigle{
+  opacity:0;
+  transform:scale(1.05);
+  will-change:opacity, transform;
+}
+.intro.entre .intro__sigle{
+  opacity:1;
+  transform:none;
+  transition:opacity .95s var(--ease), transform 1.3s var(--ease);
+}
+/* le noir se retire, le logo glisse jusqu'à sa position définitive */
+.intro.sort{
+  background:transparent;
+  pointer-events:none;   /* la page redevient cliquable pendant la sortie */
+  transition:background .8s var(--ease);
+}
+.intro.sort .intro__sigle{
+  transition:transform .8s var(--ease);
+}
+
+/* pendant l'ouverture, la page ne bouge pas */
+html.pose-intro,
+html.pose-intro body{ overflow:hidden }
+
+.hero__contenu{
+  position:relative; z-index:4;
+  text-align:center;
+  display:flex; flex-direction:column; align-items:center;
+  gap:2.1rem;
+}
+.hero__titre{ margin:0; line-height:0 }
+
+/* Le haut de page ne porte que le logo, le bouton et le trait.
+
+   Pendant l'ouverture, seul le logo de la page est masqué : celui de
+   l'écran noir tient sa place et vient se poser dessus. Le reste est
+   simplement recouvert par le voile, sans transition à orchestrer,
+   donc rien ne peut rester bloqué à mi-chemin. */
+.hero--attente .hero__titre{ opacity:0 }
+
+.hero__suite{
+  position:absolute; z-index:4; bottom:2.2rem; left:50%; translate:-50% 0;
+  width:1px; height:52px; overflow:hidden;
+  background:var(--trait-sourd);
+}
+.hero__suite span{
+  position:absolute; inset:0; background:var(--blanc);
+  animation:filet 2.6s var(--ease) infinite;
+}
+/* dès qu'on descend, le repère s'efface et son animation s'arrête */
+.hero__suite{ transition:opacity .5s var(--ease) }
+html.defile .hero__suite{ opacity:0; pointer-events:none }
+html.defile .hero__suite span{ animation-play-state:paused }
+@keyframes filet{
+  0%   { transform:translateY(-100%) }
+  55%  { transform:translateY(0) }
+  100% { transform:translateY(100%) }
+}
+
+/* --- ossature des sections ------------------------------------------- */
+
+.section{
+  max-width:var(--large);
+  margin-inline:auto;
+  padding:var(--souffle) var(--marge);
+}
+.section__entree{ max-width:56ch; margin-bottom:clamp(2.8rem,5vw,4.2rem) }
+
+.titre{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(2.15rem,5.4vw,3.6rem);
+  line-height:1.08;
+  letter-spacing:-.012em;
+  margin:0 0 1.4rem;
+  color:var(--craie);
+}
+.chapo{
+  margin:0;
+  font-size:clamp(1rem,1.6vw,1.12rem);
+  line-height:1.72;
+  color:var(--cendre);
+  max-width:52ch;
+}
+.mention{
+  font-size:.86rem;
+  color:var(--cendre);
+  line-height:1.7;
+  max-width:60ch;
+  margin:2.6rem 0 0;
+}
+/* --- le récit -------------------------------------------------------- */
+
+.recit{
+  display:grid;
+  grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);
+  gap:clamp(2.5rem,6vw,5.5rem);
+  align-items:center;
+}
+.recit__texte p{ margin:0 0 1.35rem; max-width:54ch; color:var(--cendre) }
+.recit__texte p:last-child{ margin-bottom:0 }
+
+.exergue{
+  font-family:var(--serif);
+  font-size:clamp(1.22rem,2.5vw,1.62rem);
+  line-height:1.5;
+  font-style:italic;
+  color:var(--craie) !important;
+  margin-bottom:1.9rem !important;
+}
+.signature{
+  margin-top:2.2rem !important;
+  font-size:.86rem;
+  letter-spacing:.08em;
+  color:var(--blanc);
+}
+
+/* Second temps : le film passe à gauche, le texte à droite.
+   Proportions exactement inversées par rapport au premier bloc, pour
+   que les deux se répondent en miroir.                               */
+.recit--inverse{ grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr) }
+/* les deux temps forment une seule respiration : on resserre l'écart */
+.recit--suite{
+  padding-top:0;
+  margin-top:calc(var(--souffle) * -.5);
+}
+
+.recit__film{ position:relative }
+.recit__film video{
+  width:100%;
+  aspect-ratio:9 / 16;
+  /* cadre entier, jamais rogné : le rapport de la boîte est celui des
+     fichiers (9:16) et « contain » garantit qu'aucun bord ne saute.
+     C'est la largeur de colonne qui règle la hauteur, pas un plafond. */
+  object-fit:contain;
+  filter:brightness(.86) saturate(.82);
+  /* pas de cadre : les noirs du film se fondent dans le noir de la page.
+     Un filet clair autour d'une image à fond noir dessine une boîte vide. */
+}
+.titre--second{ font-size:clamp(1.7rem,3.6vw,2.5rem) }
+
+/* --- programme des prestations --------------------------------------- */
+
+.programme{
+  display:grid;
+  /* le min() permet à la colonne de descendre sous 17rem sur les très petits
+     écrans, sinon la grille déborde et la page défile latéralement */
+  grid-template-columns:repeat(auto-fit, minmax(min(clamp(17rem,26vw,22rem), 100%), 1fr));
+  gap:clamp(2.4rem,4.5vw,4rem) clamp(2.5rem,6vw,5rem);
+}
+.programme__acte h3{
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:.92rem;
+  letter-spacing:.16em;
+  color:var(--blanc);
+  margin:0 0 1.3rem;
+  padding-bottom:.8rem;
+  border-bottom:1px solid var(--trait);
+}
+
+.tarifs{ list-style:none; margin:0; padding:0 }
+.tarifs li{
+  display:flex; align-items:baseline; gap:.55rem;
+  padding:.62rem 0;
+  font-size:.97rem;
+}
+.tarifs__nom{ color:var(--craie); font-weight:300 }
+.tarifs__fil{
+  flex:1 1 auto; min-width:1.2rem;
+  border-bottom:1px dotted rgba(237,234,227,.22);
+  transform:translateY(-.26em);
+}
+.tarifs__prix{
+  flex:0 0 auto;
+  color:var(--blanc);
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+
+/* --- bande vidéo pleine largeur -------------------------------------- */
+/* Les rushes portent déjà leur propre typographie : on n'ajoute rien.   */
+
+.bande{
+  position:relative;
+  width:100%;
+  height:clamp(20rem,62vh,38rem);
+  overflow:hidden;
+  border-block:1px solid var(--trait-sourd);
+}
+.bande video{
+  position:absolute; inset:-12% 0;
+  width:100%; height:124%; object-fit:cover;
+  filter:brightness(.82) saturate(.88);
+  transform:translate3d(0, var(--par, 0px), 0);
+  will-change:transform;
+}
+.bande::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to bottom, #000 0%, transparent 16%, transparent 84%, #000 100%);
+}
+
+/* --- équipe ---------------------------------------------------------- */
+
+.equipe{
+  list-style:none; margin:0; padding:0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(13rem,1fr));
+  gap:clamp(1.4rem,3vw,2.4rem);
+}
+.membre h3{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:1.42rem;
+  margin:1.15rem 0 .25rem;
+  letter-spacing:.005em;
+}
+.membre p{
+  margin:0;
+  font-size:.85rem;
+  letter-spacing:.05em;
+  color:var(--cendre);
+}
+
+.portrait{
+  position:relative;
+  aspect-ratio:4 / 5;
+  /* légère montée de lumière : le cadre se lit comme une niche, pas comme un trou */
+  background:linear-gradient(168deg, #1e1e1e 0%, var(--ardoise) 52%, #0b0b0b 100%);
+  border:1px solid var(--trait);
+  overflow:hidden;
+}
+/* emplacement en attente de photo : l'initiale gravée */
+.portrait::after{
+  content:attr(data-lettre);
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  font-family:var(--serif);
+  font-size:clamp(4rem,8vw,6.2rem);
+  color:rgba(255,255,255,.13);
+  line-height:1;
+}
+/* filet intérieur, façon cadre */
+.portrait::before{
+  content:""; position:absolute; inset:10px; z-index:2; pointer-events:none;
+  border:1px solid rgba(255,255,255,.14);
+}
+.portrait img{
+  position:relative; z-index:1;
+  width:100%; height:100%; object-fit:cover;
+  filter:grayscale(.15) brightness(.94);
+}
+
+/* --- avis ------------------------------------------------------------ */
+
+.avis .section__entree{ max-width:64ch }
+.avis .chapo{
+  display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap;
+  max-width:none;
+}
+.avis .chapo__suite{ flex:1 1 20ch }
+
+/* Étoiles à remplissage partiel : deux rangées superposées, celle du
+   dessus rognée à la largeur de la note. Un seul nombre à changer. */
+.etoiles{
+  position:relative;
+  display:inline-block;
+  font-size:1.05rem;
+  line-height:1;
+  letter-spacing:.16em;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+.etoiles__creux{ color:rgba(255,255,255,.24) }
+.etoiles__plein{
+  position:absolute; inset:0;
+  width:var(--part, 100%);
+  overflow:hidden;
+  color:var(--blanc);
+}
+.note{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(1.5rem,3vw,2rem);
+  color:var(--blanc);
+  letter-spacing:.01em;
+}
+
+.ruban{
+  position:relative;
+  overflow:hidden;
+  --fondu:clamp(2rem,8vw,7rem);
+  -webkit-mask:linear-gradient(90deg,transparent,#000 var(--fondu),#000 calc(100% - var(--fondu)),transparent);
+  mask:linear-gradient(90deg,transparent,#000 var(--fondu),#000 calc(100% - var(--fondu)),transparent);
+}
+.ruban__piste{
+  display:flex;
+  gap:1.15rem;
+  width:max-content;
+  will-change:transform;
+}
+.avis-carte{
+  flex:0 0 auto;
+  width:min(22.25rem, 80vw);
+  background:var(--ardoise);
+  border:1px solid var(--trait-sourd);
+  border-radius:16px;
+  padding:1.6rem 1.65rem 1.75rem;
+  display:flex; flex-direction:column; align-items:flex-start;
+  gap:1rem;
+  transition:transform .4s var(--ease), border-color .4s var(--ease), background .4s var(--ease);
+}
+.avis-carte:hover,
+.avis-carte:focus-visible{
+  transform:translateY(-3px);
+  border-color:var(--trait);
+  background:var(--ardoise-clair);
+}
+
+/* le texte pousse le reste vers le bas : les signatures s'alignent
+   d'une carte à l'autre, quelle que soit la longueur de l'avis */
+.avis-carte__texte{
+  margin:0;
+  font-size:.95rem; line-height:1.66;
+  color:var(--craie);
+  flex:1;
+}
+.avis-carte__notes{ color:var(--blanc); font-size:.85rem; letter-spacing:.2em }
+.avis-carte__source{
+  font-size:.72rem; letter-spacing:.07em;
+  color:var(--cendre);
+  border:1px solid var(--trait-sourd);
+  border-radius:999px;
+  padding:.3em .9em;
+}
+.avis-carte__qui{
+  margin:0;
+  display:flex; flex-direction:column; gap:.12rem;
+}
+.avis-carte__qui b{ color:var(--craie); font-weight:500; font-size:.94rem }
+.avis-carte__qui span{ font-size:.8rem; color:var(--cendre) }
+
+/* --- venir ----------------------------------------------------------- */
+
+/* Deux rangs qui se font face :
+     horaires  | carte
+     contact   | devanture                                              */
+.venir{
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:clamp(3rem,6vw,4.5rem) clamp(2.5rem,6vw,5rem);
+  align-items:start;
+}
+.venir__titre{ grid-column:1 / -1; margin-bottom:0 }
+
+/* sans min-width:0, un enfant de grille refuse de descendre sous la largeur
+   naturelle de son contenu et pousse la page hors de l'écran */
+.venir__horaires,
+.venir__contact,
+.venir__plan,
+.recit__texte,
+.recit__film{ min-width:0 }
+
+.venir__contact{ display:flex; flex-direction:column; align-items:flex-start }
+.venir .bouton{ margin-top:2rem }
+
+.horaires{
+  width:100%; max-width:26rem;
+  border-collapse:collapse;
+  font-size:.97rem;
+}
+.horaires th,.horaires td{
+  text-align:left; font-weight:300;
+  padding:.62rem 0;
+  border-bottom:1px solid var(--trait-sourd);
+}
+.horaires th{ color:var(--craie) }
+.horaires td{ text-align:right; color:var(--cendre); font-variant-numeric:tabular-nums }
+.horaires .ferme{ color:rgba(139,135,129,.6) }
+.horaires tr[data-aujourdhui] th,
+.horaires tr[data-aujourdhui] td{ color:var(--blanc); border-bottom-color:var(--trait) }
+
+.venir__contact address{
+  font-style:normal;
+  font-size:1.05rem;
+  line-height:1.66;
+  color:var(--craie);
+}
+.telephone{
+  display:inline-block;
+  margin-top:1rem;
+  font-family:var(--serif);
+  font-size:clamp(1.5rem,3.4vw,2.05rem);
+  color:var(--blanc);
+  text-decoration:none;
+  letter-spacing:.01em;
+  border-bottom:1px solid transparent;
+  transition:border-color .3s, color .3s;
+}
+.telephone:hover,.telephone:focus-visible{ color:var(--blanc-vif); border-bottom-color:var(--trait) }
+
+.venir__plan{ position:relative }
+
+.devanture{ margin:0; position:relative; border-radius:10px }
+.devanture img{
+  width:100%; height:auto;
+  border:1px solid var(--trait);
+  border-radius:10px;              /* même arrondi que la carte, juste dessous */
+  /* la photo est prise en plein jour : on la ramène vers le noir de la page */
+  filter:brightness(.72) saturate(.72) contrast(1.06);
+}
+/* vignettage : les bords fondent dans le fond au lieu de faire un rectangle */
+.devanture::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  border-radius:10px;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.45) 0%, transparent 34%, transparent 72%, rgba(0,0,0,.4) 100%),
+    radial-gradient(120% 90% at 50% 50%, transparent 42%, rgba(0,0,0,.45) 100%);
+}
+
+.plan{
+  position:relative;
+  /* pas de min-height : combinée à aspect-ratio, elle imposait une largeur
+     minimale de 320 px et faisait déborder la page sur les petits écrans */
+  aspect-ratio:4 / 3;
+  background:var(--ardoise);
+  border:1px solid var(--trait);
+  border-radius:10px;
+  overflow:hidden;  /* rogne les coins de la carte WebGL */
+}
+.plan__repli{
+  position:absolute; inset:0; z-index:0;
+  display:grid; place-items:center; text-align:center;
+  color:var(--cendre); font-size:.92rem; line-height:1.7;
+}
+.plan .maplibregl-map{ position:relative; z-index:1 }
+.plan canvas{ outline:none }
+.plan__lien{
+  display:inline-block; margin-top:1.1rem;
+  font-size:.86rem; letter-spacing:.05em;
+  color:var(--blanc-vif); text-decoration:none;
+  border-bottom:1px solid var(--trait); padding-bottom:2px;
+}
+.plan__lien:hover{ border-bottom-color:var(--blanc-vif) }
+
+/* repère sur la carte */
+.repere{
+  width:16px; height:16px; border-radius:50%;
+  background:var(--blanc);
+  box-shadow:0 0 0 4px rgba(255,255,255,.26), 0 0 0 10px rgba(255,255,255,.10);
+  cursor:pointer;
+}
+/* Habillage de la carte : tout se fait discret, seul le repère doit se voir. */
+
+/* mention légale repliée sur son bouton « i » */
+.plan .maplibregl-ctrl-attrib.maplibregl-compact{
+  background:rgba(0,0,0,.5) !important;
+  border-radius:999px;
+  min-height:22px;
+  margin:0 8px 8px 0;
+  box-shadow:none;
+}
+.plan .maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-inner{
+  display:none;
+}
+.plan .maplibregl-ctrl-attrib-button{
+  opacity:.35;
+  transition:opacity .3s var(--ease);
+}
+.plan .maplibregl-ctrl-attrib-button:hover{ opacity:.8 }
+.plan .maplibregl-ctrl-attrib.maplibregl-compact-show{ background:rgba(0,0,0,.88) !important }
+.plan .maplibregl-ctrl-attrib a{ color:var(--cendre) !important; font-size:10px }
+
+/* boutons de zoom, en sourdine */
+.plan .maplibregl-ctrl-group{
+  background:rgba(0,0,0,.5);
+  border:1px solid var(--trait-sourd);
+  border-radius:8px;
+  box-shadow:none;
+  overflow:hidden;
+}
+.plan .maplibregl-ctrl-group button+button{ border-top:1px solid var(--trait-sourd) }
+.plan .maplibregl-ctrl-group button .maplibregl-ctrl-icon{ filter:invert(1); opacity:.5 }
+.plan .maplibregl-ctrl-group button:hover{ background:rgba(255,255,255,.06) }
+.plan .maplibregl-ctrl-group button:hover .maplibregl-ctrl-icon{ opacity:.85 }
+
+/* --- pied ------------------------------------------------------------ */
+
+.pied{
+  border-top:1px solid var(--trait-sourd);
+  padding:clamp(2.8rem,5vw,4rem) var(--marge);
+  max-width:var(--large); margin-inline:auto;
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:2rem; flex-wrap:wrap;
+}
+.pied__marque p{ margin:1rem 0 0; font-size:.85rem; color:var(--cendre) }
+.pied__legal{
+  margin:0; text-align:right;
+  display:flex; flex-direction:column; gap:.35rem;
+  font-size:.85rem; color:var(--cendre);
+}
+.pied__legal a{ color:var(--craie); text-decoration:none; font-size:1rem }
+.pied__legal a:hover{ color:var(--blanc-vif) }
+
+/* ============================================================
+   Écrans étroits
+   ============================================================ */
+
+@media (max-width: 900px){
+  .recit{ grid-template-columns:1fr }
+  .recit__film{ order:-1; max-width:22rem; margin-inline:auto }
+  .venir{ grid-template-columns:1fr }
+}
+
+@media (max-width: 760px){
+  .entete{ gap:1rem }
+  .entete__rdv{ margin-left:auto; order:2 }
+  .volet{
+    display:grid; place-items:center; order:3;
+    width:42px; height:42px; padding:0;
+    background:none; border:1px solid var(--trait); color:var(--craie);
+    cursor:pointer;
+  }
+  .volet span[aria-hidden]{
+    position:relative; display:block; width:17px; height:1px; background:currentColor;
+    transition:background .25s;
+  }
+  .volet span[aria-hidden]::before,
+  .volet span[aria-hidden]::after{
+    content:""; position:absolute; left:0; width:17px; height:1px; background:currentColor;
+    transition:transform .3s var(--ease);
+  }
+  .volet span[aria-hidden]::before{ top:-6px }
+  .volet span[aria-hidden]::after { top:6px }
+  .volet[aria-expanded="true"] span[aria-hidden]{ background:transparent }
+  .volet[aria-expanded="true"] span[aria-hidden]::before{ transform:translateY(6px) rotate(45deg) }
+  .volet[aria-expanded="true"] span[aria-hidden]::after { transform:translateY(-6px) rotate(-45deg) }
+
+  .entete__nav{
+    position:fixed; inset:0 0 auto 0;
+    margin:0; padding:6.5rem var(--marge) 3rem;
+    flex-direction:column; align-items:flex-start; gap:.4rem;
+    background:rgba(0,0,0,.97);
+    -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--trait);
+    font-size:1.35rem;
+    transform:translateY(-101%);
+    transition:transform .5s var(--ease);
+    visibility:hidden;
+  }
+  .entete--ouvert .entete__nav{ transform:none; visibility:visible }
+  .entete__nav a{ padding-block:.62rem; opacity:1 }
+  .entete__tel{ display:block; margin-top:1.2rem; color:var(--blanc) !important; font-size:1.1rem }
+
+  .hero{ padding-top:7rem }
+  .pied{ flex-direction:column; align-items:flex-start }
+  .pied__legal{ text-align:left }
+}
+
+/* très petits téléphones : l'entête doit tenir sur une ligne */
+@media (max-width: 400px){
+  .entete{ gap:.6rem; padding-inline:1rem }
+  .sigle--petit{ width:94px }
+  .entete__rdv,
+  .entete__rdv.bouton--vif{ padding:.6em 1.75em; font-size:.76rem; letter-spacing:.05em }
+  .entete__rdv .bouton__bulle{ left:.7em; width:.4em; height:.4em; margin-top:-.2em }
+  .volet{ width:38px; height:38px }
+}
+
+/* ============================================================
+   Mouvement réduit
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto }
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .intro{ display:none !important }
+  .hero__suite span{ animation:none; opacity:.5 }
+}
