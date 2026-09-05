@@ -884,6 +884,8 @@ html.defile .hero__suite span{ animation-play-state:paused }
 /* Le pied occupe toute la largeur ; seul son contenu haut est ramené
    à la colonne du site. La dernière ligne, elle, va d'un bord à l'autre. */
 .pied{ border-top:1px solid var(--trait-sourd) }
+/* pages sans bloc du haut : plus aucun filet au-dessus de la dernière ligne */
+.pied--simple{ border-top:0 }
 
 .pied__haut{
   max-width:var(--large); margin-inline:auto;
@@ -896,9 +898,9 @@ html.defile .hero__suite span{ animation-play-state:paused }
 /* Dernière ligne, d'un bord à l'autre : copyright, mentions légales,
    crédit. Les trois se répartissent l'espace disponible. */
 .pied__bas{
-  margin-top:clamp(2.2rem,4vw,3.2rem);
-  border-top:1px solid var(--trait-sourd);
-  padding:1.3rem var(--marge) 1.5rem;
+  /* pas de filet ici : l'espace suffit à séparer */
+  margin-top:clamp(2.6rem,5vw,4rem);
+  padding:0 var(--marge) 1.8rem;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -907,8 +909,8 @@ html.defile .hero__suite span{ animation-play-state:paused }
   letter-spacing:.02em;
   color:var(--cendre);
 }
-/* sur les pages qui n'ont que cette ligne, un seul filet suffit */
-.pied__bas:first-child{ margin-top:0; border-top:0 }
+/* sur les pages qui n'ont que cette ligne, on lui donne son air */
+.pied__bas:first-child{ margin-top:clamp(3rem,6vw,5rem) }
 .pied__bas p{ margin:0 }
 .pied__bas a{
   color:var(--cendre); text-decoration:none;
