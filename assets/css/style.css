@@ -844,6 +844,41 @@ html.defile .hero__suite span{ animation-play-state:paused }
   .legal__liste dd{ padding-top:0 }
 }
 
+/* --- fiche de contact ------------------------------------------------ */
+
+.fiche{ padding-top:calc(var(--souffle) * .9); max-width:44rem }
+.fiche .titre{ margin-bottom:1rem }
+.fiche .chapo{ margin-bottom:clamp(2.5rem,5vw,3.5rem) }
+
+.fiche__liste{
+  margin:0 0 clamp(2rem,4vw,2.8rem);
+  display:grid;
+  grid-template-columns:minmax(0,14rem) minmax(0,1fr);
+}
+.fiche__liste dt,
+.fiche__liste dd{
+  margin:0;
+  padding:.85rem 0;
+  border-bottom:1px solid var(--trait-sourd);
+}
+.fiche__liste dt{ color:var(--cendre); font-size:.9rem; padding-right:1.5rem }
+.fiche__liste dd{ color:var(--craie); font-size:1rem; word-break:break-word }
+.fiche__liste a{
+  color:var(--craie); text-decoration:none;
+  border-bottom:1px solid var(--trait);
+  transition:color .3s, border-color .3s;
+}
+.fiche__liste a:hover,.fiche__liste a:focus-visible{ color:var(--blanc-vif); border-bottom-color:var(--blanc) }
+
+.fiche__mot{ color:var(--cendre); max-width:52ch; margin:0 0 2.4rem }
+.fiche__actions{ display:flex; gap:1rem; flex-wrap:wrap }
+
+@media (max-width: 640px){
+  .fiche__liste{ grid-template-columns:1fr }
+  .fiche__liste dt{ padding-bottom:.15rem; border-bottom:0; font-size:.82rem }
+  .fiche__liste dd{ padding-top:0 }
+}
+
 /* --- pied ------------------------------------------------------------ */
 
 .pied{
