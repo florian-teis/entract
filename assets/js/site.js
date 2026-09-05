@@ -238,14 +238,17 @@
 
     var hero = document.querySelector('.hero');
 
+    // Sur les pages sans vidéo d'accueil (les mentions légales), le bandeau
+    // est là dès le départ : rien ne justifierait de le faire attendre.
+    var toujours = !hero || barre.classList.contains('entete--fixe');
+
     var pose = function () {
       document.documentElement.classList.toggle('defile', window.scrollY > 40);
+      if (toujours) { barre.classList.add('entete--visible'); return; }
 
       // Le bandeau descend seulement quand on a quitté la vidéo d'accueil,
       // et il remonte si l'on revient en haut.
-      var quitte = hero
-        ? hero.getBoundingClientRect().bottom < 120
-        : window.scrollY > 400;
+      var quitte = hero.getBoundingClientRect().bottom < 120;
       barre.classList.toggle('entete--visible', quitte);
       if (!quitte) barre.classList.remove('entete--ouvert');
     };
