@@ -224,6 +224,70 @@
   }
 
   /* ==========================================================
+     3 ter. COPIER UNE ADRESSE ÉLECTRONIQUE
+     --------------------------------------------------------
+     Un clic sur une adresse la copie dans le presse-papiers
+     et le confirme, au lieu d'ouvrir un logiciel de courrier
+     que beaucoup n'ont pas configuré.
+
+     Le lien reste un vrai « mailto: » : sans JavaScript, ou
+     par un clic droit, il se comporte comme avant.
+     ========================================================== */
+
+  function copier(texte) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(texte);
+    }
+    // repli pour les navigateurs anciens et les pages ouvertes en local
+    return new Promise(function (ok, non) {
+      var zone = document.createElement('textarea');
+      zone.value = texte;
+      zone.setAttribute('readonly', '');
+      zone.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+      document.body.appendChild(zone);
+      zone.select();
+      var reussi = false;
+      try { reussi = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(zone);
+      reussi ? ok() : non();
+    });
+  }
+
+  function courriels() {
+    var liens = document.querySelectorAll('a[href^="mailto:"]');
+    if (!liens.length) return;
+
+    // message annoncé aux lecteurs d'écran
+    var annonce = document.createElement('p');
+    annonce.className = 'sr';
+    annonce.setAttribute('role', 'status');
+    annonce.setAttribute('aria-live', 'polite');
+    document.body.appendChild(annonce);
+
+    Array.prototype.forEach.call(liens, function (a) {
+      a.addEventListener('click', function (e) {
+        // on laisse passer les clics du milieu et les clics modifiés,
+        // qui servent à ouvrir autrement
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+        var adresse = a.getAttribute('href').replace(/^mailto:/i, '').split('?')[0];
+        e.preventDefault();
+
+        copier(adresse).then(function () {
+          a.classList.remove('copie-faite');
+          void a.offsetWidth;              // relance l'animation si on reclique
+          a.classList.add('copie-faite');
+          annonce.textContent = 'Adresse copiée : ' + adresse;
+          setTimeout(function () { a.classList.remove('copie-faite'); }, 2100);
+        }).catch(function () {
+          // si la copie est refusée, on ouvre le courrier comme avant
+          window.location.href = a.href;
+        });
+      });
+    });
+  }
+
+  /* ==========================================================
      4. L'ENTÊTE
      --------------------------------------------------------
      Fond noir dès qu'on quitte le haut de page, et bouton
@@ -677,6 +741,7 @@
 
   function demarrage() {
     boutons();
+    courriels();
     intro();
     entete();
     ouverture();

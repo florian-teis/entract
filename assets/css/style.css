@@ -863,6 +863,29 @@ html.defile .hero__suite span{ animation-play-state:paused }
 }
 .fiche__liste a:hover,.fiche__liste a:focus-visible{ color:var(--blanc-vif); border-bottom-color:var(--blanc) }
 
+/* confirmation après la copie d'une adresse */
+a[href^="mailto:"]{ position:relative; cursor:copy }
+.copie-faite::after{
+  content:"Adresse copiée";
+  /* au-dessus du lien : en dessous, elle recouvrirait la ligne suivante */
+  position:absolute; left:0; bottom:calc(100% + .55rem); z-index:5;
+  background:var(--blanc); color:#000;
+  font-family:"Satoshi", var(--sans);
+  font-size:.7rem; font-weight:400; letter-spacing:.02em;
+  padding:.4em .8em; border-radius:999px;
+  white-space:nowrap; pointer-events:none;
+  animation:copie 2.1s var(--courbe) forwards;
+}
+@keyframes copie{
+  0%   { opacity:0; transform:translateY(5px) }
+  14%  { opacity:1; transform:none }
+  76%  { opacity:1; transform:none }
+  100% { opacity:0; transform:translateY(3px) }
+}
+@media (prefers-reduced-motion: reduce){
+  .copie-faite::after{ animation:none; opacity:1 }
+}
+
 .fiche__mot{ color:var(--cendre); max-width:52ch; margin:0 0 2.4rem }
 .fiche__actions{ display:flex; gap:1rem; flex-wrap:wrap }
 
