@@ -829,13 +829,6 @@ html.defile .hero__suite span{ animation-play-state:paused }
 .legal__adresse{ line-height:1.8 }
 .legal__points{ margin:0 0 1.1rem; padding-left:1.2rem; color:var(--cendre); max-width:62ch }
 .legal__points li{ margin-bottom:.5rem }
-.legal__note{
-  font-size:.85rem;
-  color:var(--cendre);
-  opacity:.75;
-  border-left:1px solid var(--trait);
-  padding-left:1rem;
-}
 .legal__maj{ font-size:.85rem; color:var(--cendre); margin:0 0 2.4rem }
 
 @media (max-width: 640px){
