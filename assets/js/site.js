@@ -675,9 +675,18 @@
   /* ==========================================================
      7 bis. LE SON DES FILMS
      --------------------------------------------------------
-     Aucun navigateur n'accepte de lancer une vidéo sonore tout
-     seul : le son ne peut donc partir qu'après un clic. D'où ce
-     bouton, muet par défaut.
+     Le son est allumé d'entrée, et le bouton sert à le couper.
+
+     Mais aucun navigateur n'accepte de lancer une vidéo sonore
+     tant que le visiteur n'a rien fait. On tente donc dès
+     l'arrivée ; si c'est refusé, on retente au premier geste,
+     clic, touche ou doigt. Entre les deux, le bouton affiche
+     l'état réel : sourdine. Il ne prétend jamais qu'un son coule
+     alors qu'il n'y en a pas.
+
+     Une vidéo à qui l'on retire la sourdine sans autorisation se
+     met en pause : d'où le repli en sourdine à chaque échec,
+     sinon l'image resterait figée.
 
      Les quatre films peuvent parler, celui d'accueil compris,
      mais un seul à la fois : celui qui occupe vraiment l'écran.
@@ -695,7 +704,8 @@
 
     if (!bouton || !films.length) return;
 
-    var actif = false;
+    var actif = true;          // le son coule-t-il en ce moment ?
+    var choixDuVisiteur = false;  // a-t-il touché au bouton lui-même ?
 
     // Le film « à l'écran » : celui dont plus de la moitié est visible.
     // Sans ce seuil, deux bandes-son se chevaucheraient au passage de
@@ -713,32 +723,54 @@
       return choisi;
     }
 
+    function peindre() {
+      bouton.setAttribute('aria-pressed', String(actif));
+      bouton.querySelector('.sr').textContent =
+        actif ? 'Couper le son des films' : 'Activer le son des films';
+    }
+
     function appliquer() {
       var choisi = actif ? elu() : null;
       films.forEach(function (v) {
         var parle = v === choisi;
         if (v.muted === !parle) return;
         v.muted = !parle;
-        // Si le navigateur refuse malgré tout le son, on remet la
-        // vidéo en sourdine plutôt que de la laisser figée.
-        if (parle) v.play().catch(function () {
+        if (!parle) return;
+        v.play().catch(function () {
+          // Refus du navigateur : on repasse en sourdine, sans quoi
+          // l'image resterait figée, et le bouton le dit franchement
+          // plutôt que d'afficher un son qui ne coule pas.
           v.muted = true;
           v.play().catch(function () {});
+          if (actif) { actif = false; peindre(); }
         });
       });
     }
 
-    function basculer(vers) {
-      actif = vers;
-      bouton.setAttribute('aria-pressed', String(actif));
-      bouton.querySelector('.sr').textContent =
-        actif ? 'Couper le son des films' : 'Activer le son des films';
-      appliquer();
-    }
+    function basculer(vers) { actif = vers; peindre(); appliquer(); }
 
-    bouton.addEventListener('click', function () { basculer(!actif); });
+    bouton.addEventListener('click', function () {
+      choixDuVisiteur = true;
+      basculer(!actif);
+    });
     window.addEventListener('scroll', function () { if (actif) appliquer(); }, { passive: true });
     window.addEventListener('resize', function () { if (actif) appliquer(); });
+
+    basculer(true);   // on tente le son dès l'arrivée
+
+    // Si le navigateur a refusé, on retente au premier geste : c'est le
+    // seul instant où il accorde le son. Attention, le défilement ne
+    // compte pas pour lui, il faut un clic, une touche ou un doigt.
+    // plusieurs noms pour un même geste : selon le navigateur et le
+    // matériel, ce n'est pas toujours le même qui part en premier
+    var GESTES = ['pointerdown', 'mousedown', 'touchend', 'keydown', 'click'];
+    function reveil(e) {
+      GESTES.forEach(function (g) { document.removeEventListener(g, reveil, true); });
+      // si le geste vise le bouton, c'est lui qui décide, pas nous
+      if (bouton.contains(e.target)) return;
+      if (!choixDuVisiteur && !actif) basculer(true);
+    }
+    GESTES.forEach(function (g) { document.addEventListener(g, reveil, true); });
 
     // Le bouton est là dès l'accueil, sans quoi on ne pourrait pas
     // allumer le son du premier film. Il attend seulement la fin de
