@@ -261,7 +261,8 @@ a{ color:inherit }
 /* --- son des films ---------------------------------------------------- */
 
 /* En bas à gauche : la droite est prise par les commandes du plan.
-   Il arrive et repart avec le bandeau, pour laisser l'accueil nu. */
+   Présent dès l'accueil, sinon on ne pourrait pas allumer le son du
+   premier film. Il attend seulement que le voile d'ouverture se lève. */
 .son{
   position:fixed; z-index:60;
   left:var(--marge); bottom:1.5rem;

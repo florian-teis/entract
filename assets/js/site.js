@@ -498,8 +498,10 @@
      chargement comme au redimensionnement.
      ========================================================== */
 
-  var FILM_LARGE = 'assets/video/hero.mp4';
-  var FILM_ETROIT = 'assets/video/hero-mobile.mp4';
+  // le ?v= doit être le même que dans index.html, sans quoi le
+  // navigateur retéléchargerait le film à chaque changement de largeur
+  var FILM_LARGE = 'assets/video/hero.mp4?v=2';
+  var FILM_ETROIT = 'assets/video/hero-mobile.mp4?v=2';
 
   function filmAccueil() {
     var v = document.querySelector('.hero__film video');
@@ -520,7 +522,12 @@
       v.addEventListener('loadedmetadata', function reprise() {
         v.removeEventListener('loadedmetadata', reprise);
         try { v.currentTime = instant % (v.duration || 1); } catch (e) {}
-        v.play().catch(function () {});
+        // si le son était allumé, le navigateur peut refuser de relancer :
+        // on repasse alors en sourdine plutôt que de laisser l'image figée
+        v.play().catch(function () {
+          v.muted = true;
+          v.play().catch(function () {});
+        });
       });
     }
 
@@ -672,16 +679,20 @@
      seul : le son ne peut donc partir qu'après un clic. D'où ce
      bouton, muet par défaut.
 
-     Le film d'accueil, lui, reste toujours silencieux : c'est
-     une toile de fond derrière le logo, pas une séquence qu'on
-     regarde. Seuls les trois films de la page (repérés par
-     data-video-vue) peuvent parler, et un seul à la fois :
-     celui qui occupe vraiment l'écran.
+     Les quatre films peuvent parler, celui d'accueil compris,
+     mais un seul à la fois : celui qui occupe vraiment l'écran.
      ========================================================== */
 
   function sonDesFilms() {
     var bouton = document.getElementById('son');
     var films = Array.prototype.slice.call(document.querySelectorAll('[data-video-vue]'));
+
+    // le film d'accueil n'a pas de data-video-vue : il tourne en
+    // permanence, il n'a donc pas à être mis en pause. Il a en
+    // revanche une bande-son, on l'ajoute donc à la liste.
+    var accueil = document.querySelector('.hero__film video');
+    if (accueil) films.unshift(accueil);
+
     if (!bouton || !films.length) return;
 
     var actif = false;
@@ -729,16 +740,22 @@
     window.addEventListener('scroll', function () { if (actif) appliquer(); }, { passive: true });
     window.addEventListener('resize', function () { if (actif) appliquer(); });
 
-    // Le bouton n'apparaît qu'une fois la vidéo d'accueil passée, en
-    // même temps que le bandeau : le haut de page reste nu.
-    var hero = document.querySelector('.hero');
-    function montrer() {
-      bouton.classList.toggle('son--visible',
-        !hero || hero.getBoundingClientRect().bottom < 120);
+    // Le bouton est là dès l'accueil, sans quoi on ne pourrait pas
+    // allumer le son du premier film. Il attend seulement la fin de
+    // l'ouverture : le voile noir se lève d'abord.
+    function montrer() { bouton.classList.add('son--visible'); }
+
+    if (document.getElementById('intro')) {
+      var essais = 0;
+      var guet = setInterval(function () {
+        if (!document.getElementById('intro') || ++essais > 30) {
+          clearInterval(guet);
+          montrer();
+        }
+      }, 200);
+    } else {
+      montrer();
     }
-    montrer();
-    window.addEventListener('scroll', montrer, { passive: true });
-    window.addEventListener('resize', montrer);
   }
 
   /* ==========================================================
