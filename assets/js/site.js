@@ -753,8 +753,12 @@
       choixDuVisiteur = true;
       basculer(!actif);
     });
-    window.addEventListener('scroll', function () { if (actif) appliquer(); }, { passive: true });
-    window.addEventListener('resize', function () { if (actif) appliquer(); });
+    function auDefilement() {
+      if (actif) appliquer();
+      montrer();
+    }
+    window.addEventListener('scroll', auDefilement, { passive: true });
+    window.addEventListener('resize', auDefilement);
 
     basculer(true);   // on tente le son dès l'arrivée
 
@@ -772,20 +776,26 @@
     }
     GESTES.forEach(function (g) { document.addEventListener(g, reveil, true); });
 
-    // Le bouton est là dès l'accueil, sans quoi on ne pourrait pas
-    // allumer le son du premier film. Il attend seulement la fin de
-    // l'ouverture : le voile noir se lève d'abord.
-    function montrer() { bouton.classList.add('son--visible'); }
+    // Le bouton ne se montre que devant un film : entre deux, il n'y a
+    // rien à couper ni à rallumer, autant ne pas encombrer l'écran. Il
+    // attend en plus que le voile d'ouverture se soit levé.
+    var pret = false;
+
+    function montrer() {
+      bouton.classList.toggle('son--visible', pret && !!elu());
+    }
 
     if (document.getElementById('intro')) {
       var essais = 0;
       var guet = setInterval(function () {
         if (!document.getElementById('intro') || ++essais > 30) {
           clearInterval(guet);
+          pret = true;
           montrer();
         }
       }, 200);
     } else {
+      pret = true;
       montrer();
     }
   }
