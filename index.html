@@ -34,7 +34,7 @@
 <!-- Satoshi : uniquement pour la dernière ligne du pied de page -->
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=8">
+<link rel="stylesheet" href="assets/css/style.css?v=9">
 <script type="application/ld+json">
 {
  "@context":"https://schema.org","@type":"HairSalon","name":"Entr.act",
@@ -74,6 +74,19 @@
     <span aria-hidden="true"></span><span class="sr">Ouvrir le menu</span>
   </button>
 </header>
+
+<!-- Son des films : muet au départ, un clic suffit à l'allumer. -->
+<button class="son" id="son" type="button" aria-pressed="false" title="Son des films">
+  <svg class="son__coupe" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M4 9.2h3.2L11.4 5.4v13.2L7.2 14.8H4z"/>
+    <path d="M15.8 9.6l4.4 4.8M20.2 9.6l-4.4 4.8"/>
+  </svg>
+  <svg class="son__ouvert" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M4 9.2h3.2L11.4 5.4v13.2L7.2 14.8H4z"/>
+    <path d="M15.4 9.4a3.6 3.6 0 010 5.2M18.4 7.2a7 7 0 010 9.6"/>
+  </svg>
+  <span class="sr">Activer le son des films</span>
+</button>
 
 <main>
 
@@ -304,6 +317,6 @@
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=8"></script>
+<script src="assets/js/site.js?v=9"></script>
 </body>
 </html>

@@ -666,6 +666,82 @@
   }
 
   /* ==========================================================
+     7 bis. LE SON DES FILMS
+     --------------------------------------------------------
+     Aucun navigateur n'accepte de lancer une vidéo sonore tout
+     seul : le son ne peut donc partir qu'après un clic. D'où ce
+     bouton, muet par défaut.
+
+     Le film d'accueil, lui, reste toujours silencieux : c'est
+     une toile de fond derrière le logo, pas une séquence qu'on
+     regarde. Seuls les trois films de la page (repérés par
+     data-video-vue) peuvent parler, et un seul à la fois :
+     celui qui occupe vraiment l'écran.
+     ========================================================== */
+
+  function sonDesFilms() {
+    var bouton = document.getElementById('son');
+    var films = Array.prototype.slice.call(document.querySelectorAll('[data-video-vue]'));
+    if (!bouton || !films.length) return;
+
+    var actif = false;
+
+    // Le film « à l'écran » : celui dont plus de la moitié est visible.
+    // Sans ce seuil, deux bandes-son se chevaucheraient au passage de
+    // l'une à l'autre.
+    function elu() {
+      var h = window.innerHeight || document.documentElement.clientHeight;
+      var choisi = null;
+      var meilleure = 0.5;
+      films.forEach(function (v) {
+        var r = v.getBoundingClientRect();
+        if (!r.height) return;
+        var part = (Math.min(r.bottom, h) - Math.max(r.top, 0)) / r.height;
+        if (part > meilleure) { meilleure = part; choisi = v; }
+      });
+      return choisi;
+    }
+
+    function appliquer() {
+      var choisi = actif ? elu() : null;
+      films.forEach(function (v) {
+        var parle = v === choisi;
+        if (v.muted === !parle) return;
+        v.muted = !parle;
+        // Si le navigateur refuse malgré tout le son, on remet la
+        // vidéo en sourdine plutôt que de la laisser figée.
+        if (parle) v.play().catch(function () {
+          v.muted = true;
+          v.play().catch(function () {});
+        });
+      });
+    }
+
+    function basculer(vers) {
+      actif = vers;
+      bouton.setAttribute('aria-pressed', String(actif));
+      bouton.querySelector('.sr').textContent =
+        actif ? 'Couper le son des films' : 'Activer le son des films';
+      appliquer();
+    }
+
+    bouton.addEventListener('click', function () { basculer(!actif); });
+    window.addEventListener('scroll', function () { if (actif) appliquer(); }, { passive: true });
+    window.addEventListener('resize', function () { if (actif) appliquer(); });
+
+    // Le bouton n'apparaît qu'une fois la vidéo d'accueil passée, en
+    // même temps que le bandeau : le haut de page reste nu.
+    var hero = document.querySelector('.hero');
+    function montrer() {
+      bouton.classList.toggle('son--visible',
+        !hero || hero.getBoundingClientRect().bottom < 120);
+    }
+    montrer();
+    window.addEventListener('scroll', montrer, { passive: true });
+    window.addEventListener('resize', montrer);
+  }
+
+  /* ==========================================================
      8. LE PLAN
      --------------------------------------------------------
      Carte MapLibre au style sombre, chargée seulement quand
@@ -748,6 +824,7 @@
     ruban();
     filmAccueil();
     videos();
+    sonDesFilms();
     plan();
     revelations();
     parallaxe();
