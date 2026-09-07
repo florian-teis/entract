@@ -278,12 +278,14 @@ a{ color:inherit }
 }
 .son--visible{ opacity:1; visibility:visible; transform:none }
 .son:hover,.son:focus-visible{ color:var(--blanc-vif); border-color:var(--trait) }
-.son svg{ width:19px; height:19px; display:block }
+.son svg{ width:19px; height:19px }
 .son svg path:first-child{ fill:currentColor; stroke:none }
 .son svg path + path{
   fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round;
 }
-.son__ouvert{ display:none }
+/* une seule des deux icônes à la fois : haut-parleur barré au repos,
+   ondes une fois le son allumé */
+.son .son__ouvert{ display:none }
 .son[aria-pressed="true"] .son__ouvert{ display:block }
 .son[aria-pressed="true"] .son__coupe{ display:none }
 
