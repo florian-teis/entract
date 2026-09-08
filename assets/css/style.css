@@ -998,6 +998,12 @@ a[href^="mailto:"]{ position:relative; cursor:copy }
      format du film : plus rien n'est coupé. */
   .bande{ height:auto; aspect-ratio:16 / 9 }
   .bande video{ inset:0; height:100% }
+
+  /* Même cause pour la photo d'accueil : dans un écran vertical, une
+     image horizontale ne montre qu'une bande. Centrée, cette bande
+     tombait à droite du personnage, qui se retrouvait coupé au bord
+     gauche. On décale la fenêtre pour le remettre au milieu. */
+  .hero__film img{ object-position:32% center }
 }
 
 @media (max-width: 700px){
