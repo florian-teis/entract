@@ -489,59 +489,6 @@
   }
 
   /* ==========================================================
-     6 bis. LE FILM D'ACCUEIL
-     --------------------------------------------------------
-     Le navigateur choisit la source une fois pour toutes, au
-     chargement. Quelqu'un qui ouvre le site dans une petite
-     fenêtre puis l'agrandit garderait donc la version légère,
-     qui paraît floue en grand. On vérifie et on corrige, au
-     chargement comme au redimensionnement.
-     ========================================================== */
-
-  // le ?v= doit être le même que dans index.html, sans quoi le
-  // navigateur retéléchargerait le film à chaque changement de largeur
-  var FILM_LARGE = 'assets/video/hero.mp4?v=2';
-  var FILM_ETROIT = 'assets/video/hero-mobile.mp4?v=2';
-
-  function filmAccueil() {
-    var v = document.querySelector('.hero__film video');
-    if (!v) return;
-
-    function ajuster() {
-      var cible = window.innerWidth >= 700 ? FILM_LARGE : FILM_ETROIT;
-      if (!v.currentSrc) return;                       // pas encore choisi
-      if (v.currentSrc.indexOf(cible) !== -1) return;  // déjà le bon
-
-      var instant = v.currentTime;
-      while (v.firstChild) v.removeChild(v.firstChild);
-      var s = document.createElement('source');
-      s.src = cible;
-      s.type = 'video/mp4';
-      v.appendChild(s);
-      v.load();
-      v.addEventListener('loadedmetadata', function reprise() {
-        v.removeEventListener('loadedmetadata', reprise);
-        try { v.currentTime = instant % (v.duration || 1); } catch (e) {}
-        // si le son était allumé, le navigateur peut refuser de relancer :
-        // on repasse alors en sourdine plutôt que de laisser l'image figée
-        v.play().catch(function () {
-          v.muted = true;
-          v.play().catch(function () {});
-        });
-      });
-    }
-
-    if (v.currentSrc) ajuster();
-    else v.addEventListener('loadedmetadata', ajuster, { once: true });
-
-    var minuteur;
-    window.addEventListener('resize', function () {
-      clearTimeout(minuteur);
-      minuteur = setTimeout(ajuster, 350);
-    });
-  }
-
-  /* ==========================================================
      6 ter. LES RÉVÉLATIONS AU DÉFILEMENT
      --------------------------------------------------------
      Même vocabulaire que le site Le Prénom : le texte monte
@@ -688,20 +635,14 @@
      met en pause : d'où le repli en sourdine à chaque échec,
      sinon l'image resterait figée.
 
-     Les quatre films peuvent parler, celui d'accueil compris,
-     mais un seul à la fois : celui qui occupe vraiment l'écran.
+     Les trois films de la page peuvent parler, mais un seul à
+     la fois : celui qui occupe vraiment l'écran. L'accueil, lui,
+     est une photographie, il n'entre pas dans le compte.
      ========================================================== */
 
   function sonDesFilms() {
     var bouton = document.getElementById('son');
     var films = Array.prototype.slice.call(document.querySelectorAll('[data-video-vue]'));
-
-    // le film d'accueil n'a pas de data-video-vue : il tourne en
-    // permanence, il n'a donc pas à être mis en pause. Il a en
-    // revanche une bande-son, on l'ajoute donc à la liste.
-    var accueil = document.querySelector('.hero__film video');
-    if (accueil) films.unshift(accueil);
-
     if (!bouton || !films.length) return;
 
     var actif = true;          // le son coule-t-il en ce moment ?
@@ -881,7 +822,6 @@
     entete();
     ouverture();
     ruban();
-    filmAccueil();
     videos();
     sonDesFilms();
     plan();

@@ -301,8 +301,8 @@ a{ color:inherit }
   isolation:isolate;
 }
 .hero__film{ position:absolute; inset:0; z-index:0 }
-.hero__film video{
-  width:100%; height:100%; object-fit:cover;
+.hero__film img{
+  display:block; width:100%; height:100%; object-fit:cover;
   filter:brightness(.8) contrast(1.02);
 }
 /* voile : assombrit le centre pour que le sigle blanc tienne */

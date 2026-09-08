@@ -34,11 +34,11 @@
 <!-- Satoshi : uniquement pour la dernière ligne du pied de page -->
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=15">
+<link rel="stylesheet" href="assets/css/style.css?v=16">
 <script type="application/ld+json">
 {
  "@context":"https://schema.org","@type":"HairSalon","name":"Entr.act",
- "image":"assets/img/poster-hero.jpg","telephone":"+33251320244",
+ "image":"assets/img/accueil.jpg","telephone":"+33251320244",
  "address":{"@type":"PostalAddress","streetAddress":"7 rue de l'Hôtel de Ville","postalCode":"85100","addressLocality":"Les Sables-d'Olonne","addressCountry":"FR"},
  "geo":{"@type":"GeoCoordinates","latitude":46.4965027,"longitude":-1.7839664},
  "openingHours":["Mo-Tu 09:00-18:00","We-Fr 09:00-19:00","Sa 09:00-18:00"],
@@ -93,10 +93,9 @@
 <!-- ACCUEIL -->
 <section class="hero" id="accueil">
   <div class="hero__film">
-    <video autoplay muted loop playsinline preload="auto" poster="assets/img/poster-hero.jpg" aria-hidden="true" tabindex="-1">
-      <source src="assets/video/hero.mp4?v=2" media="(min-width: 700px)" type="video/mp4">
-      <source src="assets/video/hero-mobile.mp4?v=2" type="video/mp4">
-    </video>
+    <img src="assets/img/accueil.jpg"
+         srcset="assets/img/accueil-mobile.jpg 1200w, assets/img/accueil.jpg 1667w"
+         sizes="100vw" alt="" aria-hidden="true" fetchpriority="high">
   </div>
 
   <div class="hero__contenu">
@@ -317,6 +316,6 @@
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=15"></script>
+<script src="assets/js/site.js?v=16"></script>
 </body>
 </html>
