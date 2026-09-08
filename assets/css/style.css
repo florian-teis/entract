@@ -990,6 +990,14 @@ a[href^="mailto:"]{ position:relative; cursor:copy }
   .recit{ grid-template-columns:1fr }
   .recit__film{ order:-1; max-width:22rem; margin-inline:auto }
   .venir{ grid-template-columns:1fr }
+
+  /* Sous 900 px la parallaxe ne tourne plus : le débord de 24 % ne
+     servirait qu'à rogner davantage. Et une hauteur prise sur l'écran
+     donnait une bande presque carrée sur un téléphone, qui amputait
+     les deux tiers d'un film tourné en 16/9. On lui rend donc le
+     format du film : plus rien n'est coupé. */
+  .bande{ height:auto; aspect-ratio:16 / 9 }
+  .bande video{ inset:0; height:100% }
 }
 
 @media (max-width: 700px){
