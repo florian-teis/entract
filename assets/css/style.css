@@ -478,6 +478,7 @@ html.defile .hero__suite span{ animation-play-state:paused }
   grid-template-columns:repeat(auto-fit, minmax(min(clamp(17rem,26vw,22rem), 100%), 1fr));
   gap:clamp(2.4rem,4.5vw,4rem) clamp(2.5rem,6vw,5rem);
 }
+.programme__acte h2,
 .programme__acte h3{
   font-family:var(--sans);
   font-weight:400;
@@ -488,6 +489,8 @@ html.defile .hero__suite span{ animation-play-state:paused }
   padding-bottom:.8rem;
   border-bottom:1px solid var(--trait);
 }
+
+.programme__acte p{ margin:0; color:var(--cendre) }
 
 .tarifs{ list-style:none; margin:0; padding:0 }
 .tarifs li{
@@ -532,21 +535,76 @@ html.defile .hero__suite span{ animation-play-state:paused }
 
 /* --- la page « Le salon » -------------------------------------------- */
 
-.salon__texte{ max-width:56ch }
-.salon__texte p{ margin:0 0 1.35rem; color:var(--cendre) }
-.salon__texte p:last-child{ margin-bottom:0 }
+/* Ouverture : le titre tient une colonne, la phrase d'intention l'autre.
+   Les deux se posent sur la même ligne de pied, d'où le align-items:end :
+   le titre paraît ainsi assis sur la dernière ligne de l'italique. */
+.ouverture{
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+  gap:clamp(1.6rem,4vw,4.5rem);
+  align-items:end;
+}
+.ouverture .titre{ margin:0 }
+.ouverture__these{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:clamp(1.24rem,2.5vw,1.85rem);
+  line-height:1.44;
+  color:var(--craie);
+  margin:0;
+  max-width:30ch;
+}
 
-/* Contrairement à la bande de l'accueil, ce film-ci est le sujet de la
-   page : il garde son format, rien n'est rogné nulle part. Le fond noir
-   tient la place pendant que la première image se charge. */
-.film{ margin:clamp(2.8rem,6vw,4.4rem) 0 0 }
+/* Le film est le sujet de la page : il sort de la colonne de texte et
+   prend toute la largeur. Ce qui le borne est sa hauteur, pas sa
+   largeur, sans quoi il remplirait un grand écran à lui seul. Rien
+   n'est rogné : le format est tenu par aspect-ratio. */
+.film{
+  position:relative; left:50%;
+  width:100vw; margin-left:-50vw;
+  margin-block:clamp(3rem,7vw,5.5rem);
+  padding-inline:var(--marge);
+  box-sizing:border-box;
+  --film-large:min(100%, calc(76svh * 16 / 9));
+}
+.film video,
+.film figcaption{ width:var(--film-large); margin-inline:auto }
 .film video{
-  display:block; width:100%;
+  display:block;
   aspect-ratio:16 / 9;
   background:var(--noir);
 }
+.film figcaption{
+  margin-top:1rem;
+  font-size:.85rem;
+  color:var(--cendre);
+}
 
-.salon__actions{ margin-top:clamp(2.6rem,5vw,3.6rem); display:flex; gap:1rem; flex-wrap:wrap }
+/* La grille des prestations s'ajuste toute seule au nombre de blocs, ce
+   qui donnait ici deux colonnes et un trou. Ces trois temps-ci se
+   partagent la largeur à parts égales. */
+.programme--trois{ grid-template-columns:repeat(3, minmax(0,1fr)) }
+
+/* Clôture : la phrase de fin et les boutons sur une même ligne de pied. */
+.final{
+  margin-top:clamp(3.2rem,7vw,5.5rem);
+  padding-top:clamp(2rem,4vw,3rem);
+  border-top:1px solid var(--trait-sourd);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(1.8rem,4vw,3.5rem);
+  align-items:end;
+}
+.final__mot{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:clamp(1.15rem,2.1vw,1.6rem);
+  line-height:1.45;
+  color:var(--craie);
+  margin:0;
+  max-width:34ch;
+}
+.final__actions{ display:flex; gap:1rem; flex-wrap:wrap }
 
 /* --- équipe ---------------------------------------------------------- */
 
@@ -1022,6 +1080,12 @@ a[href^="mailto:"]{ position:relative; cursor:copy }
      tombait à droite du personnage, qui se retrouvait coupé au bord
      gauche. On décale la fenêtre pour le remettre au milieu. */
   .hero__film img{ object-position:32% center }
+
+  /* Deux colonnes n'ont plus de sens quand chacune tombe sous 400 px :
+     l'ouverture et la clôture se remettent en pile. */
+  .ouverture{ grid-template-columns:1fr; gap:1.5rem; align-items:start }
+  .programme--trois{ grid-template-columns:1fr }
+  .final{ grid-template-columns:1fr; align-items:start }
 }
 
 @media (max-width: 700px){
@@ -1036,7 +1100,7 @@ a[href^="mailto:"]{ position:relative; cursor:copy }
   /* Le bouton du son flotte en bas à gauche : alignés à gauche eux aussi,
      ces boutons-ci passeraient dessous. On les ramène au centre, où la
      place est libre. */
-  .salon__actions{ justify-content:center }
+  .final__actions{ justify-content:center }
 }
 
 @media (max-width: 760px){
