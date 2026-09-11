@@ -825,8 +825,12 @@
     entete();
     ouverture();
     ruban();
-    videos();
+    // Le son se décide avant la mise en route des films, et non après :
+    // une vidéo déjà lancée à qui l'on retire la sourdine est mise en
+    // pause par le navigateur le temps de refuser, et ce hoquet se voit.
+    // Dans cet ordre-ci, le refus tombe avant la première image.
     sonDesFilms();
+    videos();
     plan();
     revelations();
     parallaxe();
