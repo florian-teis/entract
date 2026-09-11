@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le salon — Entr.act</title>
+<meta name="description" content="L'accueil et la façon de travailler chez Entr.act, salon de coiffure rue de l'Hôtel de Ville aux Sables-d'Olonne : écouter avant de couper, chercher ce qui vous va vraiment.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/img/favicon.png?v=3" sizes="any">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://florian-teis.github.io/entract/le-salon.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Entr.act">
+<meta property="og:url" content="https://florian-teis.github.io/entract/le-salon.html">
+<meta property="og:title" content="Le salon — Entr.act">
+<meta property="og:description" content="Un accueil qui n'est pas une formule, et une coiffure cherchée avec vous plutôt qu'appliquée.">
+<meta property="og:image" content="https://florian-teis.github.io/entract/assets/img/apercu-lien.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Satoshi : uniquement pour la dernière ligne du pied de page -->
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v=19">
+</head>
+<body>
+<a class="evitement" href="#contenu">Aller au contenu</a>
+
+<header class="entete entete--fixe" id="entete">
+  <a class="entete__marque" href="index.html" aria-label="Entr.act, retour à l'accueil">
+    <span class="sigle sigle--petit"></span>
+  </a>
+
+  <nav class="entete__nav" id="menu" aria-label="Navigation principale">
+    <a href="le-salon.html" aria-current="page">Le salon</a>
+    <a href="index.html#prestations">Prestations</a>
+    <a href="index.html#equipe">L'équipe</a>
+    <a href="index.html#avis">Avis</a>
+    <a href="index.html#venir">Nous trouver</a>
+  </nav>
+
+  <a class="bouton bouton--blanc entete__rdv" id="rdv-entete"
+     href="https://www.planity.com/entract-85100-les-sables-dolonne-f8d" target="_blank" rel="noopener">Réserver</a>
+
+  <button class="volet" id="volet" aria-expanded="false" aria-controls="menu">
+    <span aria-hidden="true"></span><span class="sr">Ouvrir le menu</span>
+  </button>
+</header>
+
+<!-- Son du film : allumé d'entrée, ce bouton sert à le couper. -->
+<button class="son" id="son" type="button" aria-pressed="false" title="Son du film">
+  <svg class="son__coupe" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M4 9.2h3.2L11.4 5.4v13.2L7.2 14.8H4z"/>
+    <path d="M15.8 9.6l4.4 4.8M20.2 9.6l-4.4 4.8"/>
+  </svg>
+  <svg class="son__ouvert" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M4 9.2h3.2L11.4 5.4v13.2L7.2 14.8H4z"/>
+    <path d="M15.4 9.4a3.6 3.6 0 010 5.2M18.4 7.2a7 7 0 010 9.6"/>
+  </svg>
+  <span class="sr">Activer le son du film</span>
+</button>
+
+<main class="section" id="contenu">
+  <div class="section__entree">
+    <h1 class="titre">Le salon</h1>
+    <p class="chapo">Une heure chez le coiffeur peut être une corvée de plus dans la journée. On préfère en faire autre chose.</p>
+  </div>
+
+  <div class="salon__texte">
+    <p>L'accueil, ici, n'est pas une formule apprise. On vous dit bonjour, on vous installe, on prend le temps de savoir comment vous allez avant de savoir ce que vous voulez. Beaucoup de gens qui poussent la porte une première fois reviennent pour ça autant que pour la coupe.</p>
+
+    <p>Vient ensuite la seule question qui compte vraiment : qu'est-ce qui vous irait, à vous. Pas ce qui se fait cette saison, pas ce qu'on a vu passer la semaine dernière. On regarde votre visage, la nature de vos cheveux, et surtout le temps que vous avez le matin. Une coupe magnifique qui réclame vingt minutes de brushing tous les jours n'est pas une bonne coupe si vous en avez cinq.</p>
+
+    <p>Alors on discute, on propose, on écarte, et on décide ensemble. Vous repartez avec une coiffure que vous saurez refaire chez vous, et avec les quelques gestes qui vont avec. C'est ainsi qu'on entend le métier : vous accompagner vers ce qui vous ressemble, plutôt que de vous appliquer une idée toute faite.</p>
+
+    <p>Le film ci-dessous a été tourné dans le salon. Vingt-quatre secondes, le bruit des ciseaux et du sèche-cheveux : c'est assez fidèle à l'ambiance d'un après-midi ordinaire.</p>
+  </div>
+
+  <figure class="film">
+    <video muted loop playsinline preload="none" poster="assets/img/poster-salon.jpg"
+           data-video-vue aria-label="Film tourné dans le salon Entr.act">
+      <source src="assets/video/salon.mp4" type="video/mp4">
+    </video>
+  </figure>
+
+  <div class="salon__actions">
+    <a class="bouton bouton--blanc" href="https://www.planity.com/entract-85100-les-sables-dolonne-f8d"
+       target="_blank" rel="noopener">Prendre rendez-vous</a>
+    <a class="bouton" href="index.html#prestations">Voir les prestations</a>
+  </div>
+</main>
+
+<footer class="pied">
+  <div class="pied__haut">
+    <div class="pied__marque">
+      <span class="sigle sigle--moyen"></span>
+      <p>7 rue de l'Hôtel de Ville, 85100 Les Sables-d'Olonne</p>
+    </div>
+    <p class="pied__legal">
+      <a href="tel:+33251320244">02 51 32 02 44</a>
+      <span>Du lundi au samedi, horaires continus</span>
+    </p>
+  </div>
+
+  <div class="pied__bas">
+    <p>© 2026 Entr.act</p>
+    <p><a href="mentions-legales.html">Mentions légales</a></p>
+    <p>Design &amp; intégration par <a href="florian-teissier.html">Florian Teissier</a></p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js?v=19"></script>
+</body>
+</html>

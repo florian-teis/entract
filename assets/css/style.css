@@ -530,6 +530,24 @@ html.defile .hero__suite span{ animation-play-state:paused }
   background:linear-gradient(to bottom, #000 0%, transparent 16%, transparent 84%, #000 100%);
 }
 
+/* --- la page « Le salon » -------------------------------------------- */
+
+.salon__texte{ max-width:56ch }
+.salon__texte p{ margin:0 0 1.35rem; color:var(--cendre) }
+.salon__texte p:last-child{ margin-bottom:0 }
+
+/* Contrairement à la bande de l'accueil, ce film-ci est le sujet de la
+   page : il garde son format, rien n'est rogné nulle part. Le fond noir
+   tient la place pendant que la première image se charge. */
+.film{ margin:clamp(2.8rem,6vw,4.4rem) 0 0 }
+.film video{
+  display:block; width:100%;
+  aspect-ratio:16 / 9;
+  background:var(--noir);
+}
+
+.salon__actions{ margin-top:clamp(2.6rem,5vw,3.6rem); display:flex; gap:1rem; flex-wrap:wrap }
+
 /* --- équipe ---------------------------------------------------------- */
 
 .equipe{
@@ -1014,6 +1032,11 @@ a[href^="mailto:"]{ position:relative; cursor:copy }
 
   .pied__bas{ grid-template-columns:1fr; text-align:center; gap:.7rem }
   .pied__bas p:last-child{ text-align:center }
+
+  /* Le bouton du son flotte en bas à gauche : alignés à gauche eux aussi,
+     ces boutons-ci passeraient dessous. On les ramène au centre, où la
+     place est libre. */
+  .salon__actions{ justify-content:center }
 }
 
 @media (max-width: 760px){
