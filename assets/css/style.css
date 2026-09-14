@@ -48,6 +48,28 @@ html.anime .revele.vu{ opacity:1; transform:none }
 html.anime .zoom img{ transform:scale(1.12) }
 html.anime .zoom.vu img{ transform:none }
 
+/* ============================================================
+   Changement de page
+   Entre deux pages, la scène s'assombrit un instant, puis la
+   suivante se lève : un entracte, au sens propre du mot.
+   Aucun JavaScript. Un navigateur qui ne connaît pas cette
+   règle change simplement de page, comme avant.
+   ============================================================ */
+
+@view-transition{ navigation:auto }
+
+/* la page quittée s'éteint en reculant à peine... */
+::view-transition-old(root){
+  animation:rideau-tombe .32s cubic-bezier(.4,0,1,1) both;
+}
+/* ...un temps de noir, puis la suivante monte, sur la même courbe
+   que les révélations au défilement */
+::view-transition-new(root){
+  animation:rideau-leve .62s cubic-bezier(.22,1,.36,1) .3s both;
+}
+@keyframes rideau-tombe{ to{ opacity:0; transform:scale(.985) } }
+@keyframes rideau-leve{ from{ opacity:0; transform:translateY(22px) } }
+
 *,*::before,*::after{ box-sizing:border-box }
 
 html{ scroll-behavior:smooth; -webkit-text-size-adjust:100% }
@@ -1171,4 +1193,9 @@ a[href^="mailto:"]{ position:relative; cursor:copy }
   }
   .intro{ display:none !important }
   .hero__suite span{ animation:none; opacity:.5 }
+  /* la règle générale ci-dessus n'atteint pas les calques du changement
+     de page : on les coupe explicitement, la page change d'un coup */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*){ animation:none !important }
 }
