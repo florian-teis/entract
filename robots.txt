@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://entract-coiffure.fr/sitemap.xml
